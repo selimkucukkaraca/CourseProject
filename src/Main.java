@@ -8,6 +8,7 @@
          Scanner scanner = new Scanner(System.in);
          Admin admin = new Admin("selim", "123");
          UserManager userManager = new UserManager();
+         StudentManager studentManager = new StudentManager();
 
          String operation = "1. Öğrenci işlemleri\n" +
                  "2. Eğitmen işlemleri\n" +
@@ -18,9 +19,10 @@
              String userName = scanner.nextLine();
              System.out.println("şifre gir : ");
              String password = scanner.nextLine();
-             while (true) {
 
-                 if (userManager.login(new User(userName, password), admin)) {
+
+             if (userManager.login(new User(userName, password), admin)) {
+                 while (true) {
                      System.out.println(operation);
                      System.out.println("yapmak istediğiniz işlemi seçiniz : ");
 
@@ -29,26 +31,33 @@
                      if (inputOperation == 1) {
                          System.out.println("öğrenci işlerine giriş yapıldı");
                          System.out.println("işlemler\n" +
-                                 "4. öğrenci kaydetme");
-                         System.out.println("yapmak istediğiniz işlem : ");
+                                 "4. öğrenci kaydetme\n");
+                         System.out.println("işlem seçiniz : ");
+                         int studentOperation = scanner.nextInt();
+                         if (studentOperation == 4) {
+                             System.out.println("öğrenci numarası : ");
+                             int ogrNo = scanner.nextInt();
+                             System.out.println("öğrenci sınıf : ");
+                             int sinif = scanner.nextInt();
+                             System.out.println(studentManager.studentSave(new Student(ogrNo, sinif)));
+                         }
+                     }
+                     else if (inputOperation == 2) {
 
-                     } else if (inputOperation == 2) {
-                         System.out.println("eğitmen işlerine giriş yapıldı");
-
-
-                     } else if (inputOperation == 3) {
+                     }
+                     else if (inputOperation == 3) {
                          System.out.println("çıkış yapılıyor");
                          break;
-
-                     } else {
+                     }
+                     else {
                          System.out.println("geçersiz işlem");
                      }
 
-
                  }
-
              }
-
+             else {
+                 System.out.println("kullanıcı adı ve şifre hatalı");
+             }
          }
      }
- }
+}
